@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="loading"><img src="./loading.gif"/></div>
+    <table id="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+            </tr>
+        </thead>
+        <tbody id="table_body"></tbody>
+    </table>
+    <script type="text/javascript">
+        let isLoading = true;
+
+        const loading = document.getElementById('loading');
+        loading.style.display = 'block';
+        
+        fetch('https://dummyjson.com/products/')
+            .then(res => res.json())
+            .then(json => {
+            
+                isLoading = false;
+                
+                loading.style.display = 'none';
+        
+                const tableBody = document.getElementById('table_body');
+                json.products.forEach(element => {
+                    const row = document.createElement('tr');
+                    const titleCell = document.createElement('td');
+                    titleCell.textContent = element.title;
+                    row.appendChild(titleCell);
+                    tableBody.appendChild(row);
+                });
+            });
+           
+    </script>
+    
+</body>
+</html>
